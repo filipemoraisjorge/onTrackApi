@@ -1,80 +1,138 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
 
 # OnTrack
 
 Teams OnTrack
 
-## Questions Collection [/questions]
+## User [/user/{user_id}]
 
-### List All Questions [GET]
+User Dashboard
+For now just the graphic showing Constructor rates throught time.
+
+
+### List all rates [GET]
 
 + Response 200 (application/json)
 
         [
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
+                "user_id": user_id
+                "rates": [
                     {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
+                        "rated_at": "2015-08-05T08:40:51.620Z",
+                        "constructors": [
+                            { 
+                                 "name": "Energy",
+                                 "rate": 7
+                            },
+                            { 
+                                 "name": "Focus",
+                                 "rate": 8
+                            },
+                            { 
+                                 "name": "Happiness",
+                                 "rate": 9
+                            },
+                            { 
+                                 "name": "Productivity",
+                                 "rate": 7
+                            }
+                        ]
+                    },
+                    {
+                        "rated_at": "2015-08-06T08:35:51.620Z",
+                        "constructors": [
+                            { 
+                                 "name": "Energy",
+                                 "rate": 8
+                            },
+                            { 
+                                 "name": "Focus",
+                                 "rate": 9
+                            },
+                            { 
+                                 "name": "Happiness",
+                                 "rate": 9
+                            },
+                            { 
+                                 "name": "Productivity",
+                                 "rate": 7
+                            }
+                        ]
+                    },
+                    {
+                        "rated_at": "2015-08-07T08:50:51.620Z",
+                        "constructors": [
+                            { 
+                                 "name": "Energy",
+                                 "rate": 6
+                            },
+                            { 
+                                 "name": "Focus",
+                                 "rate": 5
+                            },
+                            { 
+                                 "name": "Happiness",
+                                 "rate": 7
+                            },
+                            { 
+                                 "name": "Productivity",
+                                 "rate": 6
+                            }
+                        ]
                     }
+            
                 ]
             }
         ]
+        
 
-### Create a New Question [POST]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
 
+###  Contructor [/user/constructor/{constructor_name}]
++ Parameters
+    + constructor_name (enum[string])
+        Name of the Contructor.
+    
+        + Members
+            + 'Energy'
+            + 'Happiness'
+            + 'Focus'
+            + 'Productivity'
+    
+#### Constructors [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "constructor": "Energy",
+                "rated_at": "2015-08-05T08:40:51.620Z",
+                "rate": 7
+                 
+            }
+            
+        ]
+        
+#### Daily Rate Contructor [POST]
+
+Rate your contructors and store them on DB.
+It takes a JSON object containing a contructor's identifyied by string constructor, the time of the rating as rated_at and a rate between MIN_RATE and MAX_RATE.
+        
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "constructor": "Energy",
+            "rated_at": "2015-08-05T08:40:51.620Z",
+            "rate": 7
         }
-
+        
 + Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
 
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "contructor": "Energy",
+                "rated_at": "2015-08-05T08:40:51.620Z",
+                "rate": 7
             }
