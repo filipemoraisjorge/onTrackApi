@@ -100,13 +100,13 @@ For now just the graphic showing Constructor rates throught time.
             + 'Focus'
             + 'Productivity'
     
-#### Constructors [GET]
+### Constructors [GET]
 
 + Response 200 (application/json)
 
         [
             {
-                "constructor": "Energy",
+                "constructor": Energy,
                 "rated_at": "2015-08-05T08:40:51.620Z",
                 "rate": 7
                  
@@ -132,7 +132,7 @@ It takes a JSON object containing a contructor's identifyied by string construct
     + Body
 
             {
-                "contructor": "Energy",
+                "contructor": Energy,
                 "rated_at": "2015-08-05T08:40:51.620Z",
                 "rate": 7
             }
